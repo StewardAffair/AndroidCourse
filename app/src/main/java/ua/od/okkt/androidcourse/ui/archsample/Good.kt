@@ -29,6 +29,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 class NoteRepository(private val dao: NoteDao) {
 
@@ -39,7 +40,7 @@ class NoteRepository(private val dao: NoteDao) {
     }
 }
 
-class NoteViewModel(private val repository: NoteRepository) : ViewModel() {
+class NoteViewModel @Inject constructor(private val repository: NoteRepository) : ViewModel() {
     val notes = repository.notes.stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
 
     fun addNote(text: String) {

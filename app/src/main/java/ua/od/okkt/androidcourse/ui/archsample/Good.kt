@@ -18,13 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.room.Dao
-import androidx.room.Database
-import androidx.room.Entity
-import androidx.room.Insert
-import androidx.room.PrimaryKey
-import androidx.room.Query
-import androidx.room.RoomDatabase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
@@ -40,6 +34,7 @@ class NoteRepository(private val dao: NoteDao) {
     }
 }
 
+@HiltViewModel
 class NoteViewModel @Inject constructor(private val repository: NoteRepository) : ViewModel() {
     val notes = repository.notes.stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
 

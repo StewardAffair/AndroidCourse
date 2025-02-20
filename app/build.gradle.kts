@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.google.hilt)
     id("com.google.devtools.ksp")
 }
 
@@ -42,8 +43,10 @@ android {
 
 dependencies {
 
-    implementation (libs.dagger)
-    ksp (libs.dagger.compiler)
+    implementation(libs.dagger)
+    ksp(libs.dagger.compiler)
+    implementation ("com.google.dagger:hilt-android:2.51.1")
+    ksp ("com.google.dagger:hilt-compiler:2.51.1")
 
     implementation(libs.androidx.room.runtime)
     ksp(libs.androidx.room.compiler)

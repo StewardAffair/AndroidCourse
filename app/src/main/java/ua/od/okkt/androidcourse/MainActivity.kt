@@ -5,24 +5,20 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
+import dagger.hilt.android.AndroidEntryPoint
 import ua.od.okkt.androidcourse.ui.archsample.Good
 import ua.od.okkt.androidcourse.ui.archsample.NoteViewModel
 import ua.od.okkt.androidcourse.ui.theme.AndroidCourseTheme
-import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    @Inject
-    lateinit var viewModel: NoteViewModel
-
-    override fun onAttachedToWindow() {
-        super.onAttachedToWindow()
-        (application as App).appComponent.inject(this)
-    }
+    private val viewModel: NoteViewModel by viewModels()
 
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {

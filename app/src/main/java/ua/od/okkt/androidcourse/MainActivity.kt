@@ -9,28 +9,14 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
-import androidx.room.Room
-import ua.od.okkt.androidcourse.ui.archsample.AppDatabase
-import ua.od.okkt.androidcourse.ui.archsample.BadScreen
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import ua.od.okkt.androidcourse.ui.archsample.Good
-import ua.od.okkt.androidcourse.ui.archsample.NoteRepository
 import ua.od.okkt.androidcourse.ui.archsample.NoteViewModel
 import ua.od.okkt.androidcourse.ui.theme.AndroidCourseTheme
 
 class MainActivity : ComponentActivity() {
 
-    val db by lazy {
-        Room.databaseBuilder(
-            this.applicationContext,
-            AppDatabase::class.java, "notes-db"
-        ).allowMainThreadQueries().build()
-    }
-
-    val noteDao by lazy {  db.noteDao() }
-
-    val repo by lazy {
-        NoteRepository(noteDao)
-    }
+    private val noteViewModel: NoteViewModel by viewModel()
 
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,11 +25,11 @@ class MainActivity : ComponentActivity() {
         setContent {
             AndroidCourseTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    BadScreen(applicationContext)
-//                    Good(
-//                        modifier = Modifier.padding(innerPadding),
-//                        viewModel = NoteViewModel(repo)
-//                    )
+//                    BadScreen(applicationContext)
+                    Good(
+                        modifier = Modifier.padding(innerPadding),
+                        viewModel = noteViewModel
+                    )
                 }
             }
         }
